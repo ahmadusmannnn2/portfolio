@@ -2,10 +2,16 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
+                <div class="flex">
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('profile.edit') }}">
-                        @php $emailHash = md5(strtolower(trim(Auth::user()->email))); @endphp
-                        <img src="https://www.gravatar.com/avatar/{{ $emailHash }}?d=mp" alt="Profile" class="h-10 w-10 rounded-full object-cover">
+                        {{-- Logika BARU untuk menampilkan foto --}}
+                        @if (Auth::user()->profile_photo_path)
+                            <img src="{{ asset('storage/' . Auth::user()->profile_photo_path) }}" alt="Profile" class="h-10 w-10 rounded-full object-cover">
+                        @else
+                            @php $emailHash = md5(strtolower(trim(Auth::user()->email))); @endphp
+                            <img src="https://www.gravatar.com/avatar/{{ $emailHash }}?d=mp" alt="Profile" class="h-10 w-10 rounded-full object-cover">
+                        @endif
                     </a>
                 </div>
 
