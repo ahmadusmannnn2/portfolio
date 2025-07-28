@@ -61,16 +61,19 @@ section {
   font-size: 1.7rem;
   color: var(--text-color);
   margin-left: 4rem;
-  transition: 0.3s;
+  transition: color 0.3s ease, transform 0.3s ease; /* Transisi yang lebih spesifik */
+  font-weight: 500; /* Sedikit lebih tebal dari normal */
 }
 
 /* ===== PERUBAHAN DI SINI ===== */
 .navbar a:hover,
 .navbar a.active {
   color: var(--main-color);
-  font-weight: 600; /* Menambahkan ketebalan font */
+  font-weight: 700; /* Dibuat lebih tebal saat aktif */
+  transform: scale(1.05); /* Sedikit memperbesar teks */
 }
 /* ============================= */
+
 
 #menu-icon {
   font-size: 3.6rem;

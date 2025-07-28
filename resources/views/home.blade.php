@@ -50,6 +50,20 @@
   <section class="services" id="services">
     <h2 class="heading">Our <span>Services</span></h2>
     <div class="services-container">
+      @foreach($services as $service)
+        <div class="services-box">
+          <i class="{{ $service->icon_class }}"></i>
+          <h3>{{ $service->title }}</h3>
+          <p>{{ $service->short_description }}</p>
+          <a href="{{ route('service.detail', $service->slug) }}" class="btn">Read More</a>
+        </div>
+      @endforeach
+    </div>
+  </section>
+
+  <!-- <section class="services" id="services">
+    <h2 class="heading">Our <span>Services</span></h2>
+    <div class="services-container">
       <div class="services-box">
         <i class="bx bx-code-alt"></i>
         <h3>UI/UX Design</h3>
@@ -78,7 +92,7 @@
         <a href="#portfolio" class="btn">Read More</a>
       </div>
     </div>
-  </section>
+  </section> -->
 
   <section class="portfolio" id="portfolio">
     <h2 class="heading">Latest <span>Project</span></h2>

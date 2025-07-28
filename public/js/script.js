@@ -1,3 +1,4 @@
+/*===== menu icon navbar =====*/
 let menuIcon = document.querySelector("#menu-icon");
 let navbar = document.querySelector(".navbar");
 
@@ -6,7 +7,7 @@ menuIcon.onclick = () => {
   navbar.classList.toggle("active");
 };
 
-/*================== scroll section active link ==================*/
+/*===== scroll sections active link =====*/
 let sections = document.querySelectorAll("section");
 let navLinks = document.querySelectorAll("header nav a");
 
@@ -27,17 +28,52 @@ window.onscroll = () => {
     }
   });
 
-  /*================== sticky navbar ==================*/
-  let header = document.querySelector("header");
-
+  /*===== sticky navbar =====*/
+  let header = document.querySelector(".header");
   header.classList.toggle("sticky", window.scrollY > 100);
 
-  /*================== remove toggle icon and navbar when click navbar link (scroll) ==================*/
+  /* ===== PERUBAHAN BARU DI SINI ===== */
+  let logo = document.querySelector('.logo');
+  // Jika posisi scroll lebih dari 100px (saat navbar menjadi sticky)
+  if (window.scrollY > 100) {
+      // Ubah teks logo menjadi nama Anda
+      logo.textContent = 'Ahmad Usman';
+  } else {
+      // Jika kembali ke atas, kembalikan teks menjadi "Portfolio"
+      logo.textContent = 'Portfolio';
+  }
+  /* ================================= */
+
+  /*===== remove menu icon navbar when click navbar link (scroll) =====*/
   menuIcon.classList.remove("bx-x");
   navbar.classList.remove("active");
 };
 
-/*================== scroll reveal ==================*/
+/*===== swiper =====*/
+var swiper = new Swiper(".mySwiper", {
+  slidesPerView: 1,
+  spaceBetween: 50,
+  loop: true,
+  grabCursor: true,
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+  },
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+});
+
+/*===== dark light mode =====*/
+let darkModeIcon = document.querySelector("#darkMode-icon");
+
+darkModeIcon.onclick = () => {
+  darkModeIcon.classList.toggle("bx-sun");
+  document.body.classList.toggle("dark-mode");
+};
+
+/*===== scroll reveal =====*/
 ScrollReveal({
   // reset: true,
   distance: "80px",
@@ -45,26 +81,12 @@ ScrollReveal({
   delay: 200,
 });
 
-ScrollReveal().reveal(".home-content,.heading", { origin: "top" });
+ScrollReveal().reveal(".home-content, .heading", { origin: "top" });
 ScrollReveal().reveal(
-  ".home-img,.services-container,.portfolio-box,.contact form",
+  ".home-img img, .services-container, .portfolio-box, .testimonial-wrapper, .contact form",
   { origin: "bottom" }
 );
-ScrollReveal().reveal(".home-content h1,.about-img", { origin: "left" });
-ScrollReveal().reveal(".home-content p,.about-content", { origin: "right" });
-
-/*================== typed js ==================*/
-const typed = new Typed('.multiple-text',{
-  strings: ['UI/UX Designer','Frontend Developer', 'Graphic Designer'],
-  typeSpeed: 100,
-  backSpeed: 100,
-  backDelay: 1000,
-  loop: true,
+ScrollReveal().reveal(".home-content h1, .about-img img", { origin: "left" });
+ScrollReveal().reveal(".home-content h3, .home-content p, .about-content", {
+  origin: "right",
 });
-
-/*================== clear form before unload ==================*/
-window.onbeforeunload = () => {
-  for (const form of document.getElementsByTagName("form")){
-      form.reset();
-  }
-};

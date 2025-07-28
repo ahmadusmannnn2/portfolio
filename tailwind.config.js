@@ -12,15 +12,15 @@ export default {
 
     theme: {
         extend: {
+            // Ubah font sans-serif default menjadi Poppins
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Poppins', ...defaultTheme.fontFamily.sans],
             },
-            // TAMBAHKAN WARNA ANDA DI SINI TANPA MENGHAPUS YANG LAIN
             colors: {
-                'theme-light': '#fffae6',      // bg-color
-                'theme-secondary': '#d3d5b5',  // second-bg-color
-                'theme-text': '#345133',       // text-color
-                'theme-main': '#698342',       // main-color
+                'theme-light': '#fffae6',
+                'theme-secondary': '#d3d5b5',
+                'theme-text': '#345133',
+                'theme-main': '#698342',
             },
         },
     },

@@ -10,17 +10,18 @@ use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Admin\SocialLinkController;
 use App\Http\Controllers\Admin\CertificateController;
+use App\Http\Controllers\Admin\ServiceController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store'); // <-- Rute BARU
 Route::get('/certificates', [HomeController::class, 'certificates'])->name('certificates.index');
-
+Route::get('/service/{service:slug}', [HomeController::class, 'serviceDetail'])->name('service.detail');
 
 // Area Admin, wajib login
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function() {
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('portfolios', PortfolioController::class);
     Route::resource('categories', CategoryController::class);
-    
+
     // Rute untuk Kelola Tampilan (BARU)
     Route::get('content', [ContentController::class, 'index'])->name('content.index');
     Route::post('content', [ContentController::class, 'update'])->name('content.update');
@@ -30,7 +31,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function() {
 
     Route::resource('social_links', SocialLinkController::class);
     Route::resource('certificates', CertificateController::class);
-
+    Route::resource('services', ServiceController::class);
 });
 
 // PERUBAHAN: Rute dashboard sekarang mengarahkan ke halaman portofolio
@@ -44,4 +45,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
