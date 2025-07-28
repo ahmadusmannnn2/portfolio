@@ -28,7 +28,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        // PERUBAHAN: Arahkan ke halaman index portofolio admin
+        return redirect()->intended(route('admin.portfolios.index'));
     }
 
     /**

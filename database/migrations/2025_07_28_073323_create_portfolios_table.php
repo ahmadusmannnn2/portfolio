@@ -9,18 +9,17 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
-{
-    Schema::create('portfolios', function (Blueprint $table) {
-        $table->id();
-        $table->string('title');
-        $table->text('description')->nullable();
-        $table->string('image_filename')->nullable();
-        $table->string('project_link')->nullable();
-        $table->timestamps();
-    });
-}
-
+    public function up(): void
+    {
+        Schema::create('portfolios', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+           $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            $table->string('project_link')->nullable();
+            $table->string('image')->nullable(); // INI ADALAH KOLOM YANG HILANG
+            $table->timestamps();
+        });
+    }
 
     /**
      * Reverse the migrations.

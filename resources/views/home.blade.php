@@ -83,17 +83,31 @@
   <!-- portfolio section -->
   <section class="portfolio" id="portfolio">
     <h2 class="heading">Latest <span>Project</span></h2>
+
+    {{-- Filter Kategori --}}
+    <div class="portfolio-filter">
+        <button class="btn active" data-filter="*">All</button>
+        @foreach ($categories as $category)
+            <button class="btn" data-filter=".{{ $category->slug }}">{{ $category->name }}</button>
+        @endforeach
+    </div>
+
     <div class="portfolio-container">
-      @foreach($portfolios as $p)
-        <div class="portfolio-box">
-          <img src="{{ asset('images/' . $p->image_filename) }}" alt="{{ $p->title }}" />
+      @forelse($portfolios as $p)
+        {{-- Tambahkan class slug dari kategori untuk filtering --}}
+        <div class="portfolio-box {{ $p->category->slug }}">
+          <img src="{{ asset('storage/' . $p->image) }}" alt="{{ $p->title }}" />
           <div class="portfolio-layer">
             <h4>{{ $p->title }}</h4>
-            <p>{{ $p->description }}</p>
-            <a href="{{ $p->project_link }}" target="_blank"><i class="bx bx-link-external"></i></a>
+            <p>{{ $p->category->name }}</p>
+            @if($p->project_link)
+              <a href="{{ $p->project_link }}" target="_blank"><i class='bx bx-link-external'></i></a>
+            @endif
           </div>
         </div>
-      @endforeach
+      @empty
+        <p class="text-center" style="grid-column: 1 / -1;">Belum ada project.</p>
+      @endforelse
     </div>
   </section>
 

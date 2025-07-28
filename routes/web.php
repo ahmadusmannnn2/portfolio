@@ -1,23 +1,23 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Admin\PortfolioController;
+use App\Http\Controllers\Admin\CategoryController; // <-- Tambahkan ini
+use App\Http\Controllers\ProfileController;
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-
-
 
 // Area Admin, wajib login
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function() {
     Route::resource('portfolios', PortfolioController::class);
+    Route::resource('categories', CategoryController::class);
 });
 
-
-
+// PERUBAHAN: Rute dashboard sekarang mengarahkan ke halaman portofolio
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return redirect()->route('admin.portfolios.index');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

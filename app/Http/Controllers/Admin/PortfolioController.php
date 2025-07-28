@@ -4,80 +4,105 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Portfolio;
+use App\Models\Category; // <-- TAMBAHKAN BARIS INI
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
 class PortfolioController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
-        $portfolios = Portfolio::orderBy('created_at', 'desc')->paginate(10);
+        $portfolios = Portfolio::latest()->paginate(10);
         return view('admin.portfolios.index', compact('portfolios'));
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create()
     {
-        return view('admin.portfolios.create');
+        $categories = Category::all(); // Baris ini sekarang akan berfungsi
+        return view('admin.portfolios.create', compact('categories'));
     }
 
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'title'       => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'project_link'=> 'nullable|url',
-            'image'       => 'nullable|image|max:2048',
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'project_link' => 'nullable|url',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if ($request->hasFile('image')) {
-            // simpan di public/images
-            $filename = Str::random(10).'_'.$request->file('image')->getClientOriginalName();
-            $request->file('image')->move(public_path('images'), $filename);
-            $data['image_filename'] = $filename;
+            $path = $request->file('image')->store('portfolio_images', 'public');
+            $validated['image'] = $path;
         }
 
-        Portfolio::create($data);
-        return redirect()->route('admin.portfolios.index')
-                         ->with('success', 'Portfolio berhasil ditambahkan.');
+        Portfolio::create($validated);
+
+        return redirect()->route('admin.portfolios.index')->with('success', 'Portfolio berhasil ditambahkan.');
     }
 
+    /**
+     * Display the specified resource.
+     */
+    public function show(Portfolio $portfolio)
+    {
+        return redirect()->route('admin.portfolios.edit', $portfolio->id);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
     public function edit(Portfolio $portfolio)
     {
-        return view('admin.portfolios.edit', compact('portfolio'));
+        $categories = Category::all(); // Baris ini juga sekarang akan berfungsi
+        return view('admin.portfolios.edit', compact('portfolio', 'categories'));
     }
 
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(Request $request, Portfolio $portfolio)
     {
-        $data = $request->validate([
-            'title'       => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'project_link'=> 'nullable|url',
-            'image'       => 'nullable|image|max:2048',
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'project_link' => 'nullable|url',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if ($request->hasFile('image')) {
-            // hapus file lama jika ada
-            if ($portfolio->image_filename && file_exists(public_path('images/'.$portfolio->image_filename))) {
-                unlink(public_path('images/'.$portfolio->image_filename));
+            if ($portfolio->image) {
+                Storage::disk('public')->delete($portfolio->image);
             }
-            $filename = Str::random(10).'_'.$request->file('image')->getClientOriginalName();
-            $request->file('image')->move(public_path('images'), $filename);
-            $data['image_filename'] = $filename;
+            $path = $request->file('image')->store('portfolio_images', 'public');
+            $validated['image'] = $path;
         }
 
-        $portfolio->update($data);
-        return redirect()->route('admin.portfolios.index')
-                         ->with('success', 'Portfolio berhasil diupdate.');
+        $portfolio->update($validated);
+
+        return redirect()->route('admin.portfolios.index')->with('success', 'Portfolio berhasil diperbarui.');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(Portfolio $portfolio)
     {
-        if ($portfolio->image_filename && file_exists(public_path('images/'.$portfolio->image_filename))) {
-            unlink(public_path('images/'.$portfolio->image_filename));
+        if ($portfolio->image) {
+            Storage::disk('public')->delete($portfolio->image);
         }
+        
         $portfolio->delete();
-        return redirect()->route('admin.portfolios.index')
-                         ->with('success', 'Portfolio berhasil dihapus.');
+
+        return redirect()->route('admin.portfolios.index')->with('success', 'Portfolio berhasil dihapus.');
     }
 }
