@@ -16,11 +16,9 @@
       </p>
       
       <div class="social-media">
-        {{-- Link media sosial masih statis seperti sebelumnya --}}
-        <a href="https://wa.me/6283816925369" target="_blank"><i class="bx bxl-whatsapp"></i></a>
-        <a href="https://instagram.com/tentang.desain?igshid=MzRlODBiNWFlZA==" target="_blank"><i class="bx bxl-instagram-alt"></i></a>
-        <a href="https://dribbble.com/ahmdusman" target="_blank"><i class="bx bxl-dribbble"></i></a>
-        <a href="https://id.linkedin.com/in/ahmad-usman-292188275" target="_blank"><i class="bx bxl-linkedin"></i></a>
+        @foreach($socialLinks as $link)
+            <a href="{{ $link->url }}" target="_blank"><i class="{{ $link->icon_class }}"></i></a>
+        @endforeach
       </div>
       
       {{-- Link CV sekarang dinamis --}}
@@ -112,12 +110,24 @@
 
   <section class="contact" id="contact">
     <h2 class="heading">Contact <span>Me!</span></h2>
-    <form action="https://formspree.io/f/xqkrzvgg" method="post">
+    
+    @if(session('success'))
+        <div style="padding: 1rem; margin-bottom: 2rem; border-radius: 0.8rem; background: #698342; color: #fffae6; text-align: center;">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    <form action="{{ route('contact.store') }}" method="post">
+      @csrf
       <div class="input-box">
-        <input type="text" placeholder="Full Name" name="name" id="name" />
-        <input type="email" placeholder="Email Address" name="email" id="email" />
+        <input type="text" placeholder="Full Name" name="name" required />
+        <input type="email" placeholder="Email Address" name="email" required />
       </div>
-      <textarea name="message" id="message" cols="30" rows="10" placeholder="message"></textarea>
+       <div class="input-box">
+         {{-- Input Telepon BARU --}}
+        <input type="tel" placeholder="Phone Number" name="phone" required />
+      </div>
+      <textarea name="message" cols="30" rows="10" placeholder="Your Message" required></textarea>
       <input type="submit" value="Send Message" class="btn" />
     </form>
   </section>

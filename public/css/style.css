@@ -64,10 +64,13 @@ section {
   transition: 0.3s;
 }
 
+/* ===== PERUBAHAN DI SINI ===== */
 .navbar a:hover,
 .navbar a.active {
   color: var(--main-color);
+  font-weight: 600; /* Menambahkan ketebalan font */
 }
+/* ============================= */
 
 #menu-icon {
   font-size: 3.6rem;
@@ -275,20 +278,17 @@ span {
   display: flex;
 }
 
-/* ===== PERUBAHAN DI SINI ===== */
 .portfolio-box img {
   width: 100%;
-  height: auto; /* <-- Mengembalikan tinggi gambar ke otomatis */
-  /* HAPUS aspect-ratio dan object-fit */
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
   transition: 0.5s ease;
 }
 
 .portfolio-box.hide {
   display: none;
 }
-
-/* ===== SELESAI ===== */
-
 
 .portfolio-box:hover img {
   transform: scale(1.1);
@@ -332,24 +332,24 @@ span {
   align-items: center;
   width: 5rem;
   height: 5rem;
-  background: var(--bg-color); /* Warna dasar: terang */
+  background: var(--bg-color);
   border-radius: 50%;
-  transition: 0.5s ease; /* Tambahkan transisi agar mulus */
+  transition: 0.5s ease;
 }
 
 .portfolio-layer a:hover {
-  background: var(--main-color); /* Warna saat hover: hijau */
+  background: var(--main-color);
   box-shadow: 0 0 1rem var(--main-color);
 }
 
 .portfolio-layer a i {
   font-size: 2rem;
-  color: var(--main-color); /* Warna ikon dasar: hijau */
-  transition: 0.5s ease; /* Tambahkan transisi agar mulus */
+  color: var(--main-color);
+  transition: 0.5s ease;
 }
 
 .portfolio-layer a:hover i {
-  color: var(--bg-color); /* Warna ikon saat hover: terang */
+  color: var(--bg-color);
 }
 
 .contact h2 {
