@@ -1,52 +1,54 @@
 @extends('layouts.frontend')
 
-@section('title', 'Home | Ahmad Usman')
+{{-- Judul halaman sekarang dinamis, diambil dari database --}}
+@section('title', 'Home | ' . ($contents['home_name']->value ?? 'Ahmad Usman'))
 
 @section('content')
-  <!-- home section -->
   <section class="home" id="home">
     <div class="home-content">
-      <h3>Hello, It's Me</h3>
-      <h1>Ahmad Usman</h1>
-      <h3>And I'm a <span class="multiple-text"></span></h3>
+      {{-- Menggunakan data dari database --}}
+      <h3>{{ $contents['home_greeting']->value ?? "Hello, It's Me" }}</h3>
+      <h1>{{ $contents['home_name']->value ?? 'Ahmad Usman' }}</h1>
+      {{-- Teks berkedip akan diisi oleh JavaScript, tapi datanya dari sini --}}
+      <h3>And I'm a <span class="multiple-text" data-roles="{{ $contents['home_roles']->value ?? 'UI/UX Designer' }}"></span></h3>
       <p>
-        I am passionate about creating user-centered digital experiences that
-        are not only visually appealing but also highly functional. My
-        portfolio showcases a selection of my best work, highlighting my
-        skills in user interface (UI) and user experience (UX) design.
+        {{ $contents['home_paragraph']->value ?? 'I am passionate about creating user-centered digital experiences...' }}
       </p>
+      
       <div class="social-media">
+        {{-- Link media sosial masih statis seperti sebelumnya --}}
         <a href="https://wa.me/6283816925369" target="_blank"><i class="bx bxl-whatsapp"></i></a>
         <a href="https://instagram.com/tentang.desain?igshid=MzRlODBiNWFlZA==" target="_blank"><i class="bx bxl-instagram-alt"></i></a>
         <a href="https://dribbble.com/ahmdusman" target="_blank"><i class="bx bxl-dribbble"></i></a>
         <a href="https://id.linkedin.com/in/ahmad-usman-292188275" target="_blank"><i class="bx bxl-linkedin"></i></a>
       </div>
-      <a href="{{ asset('file/resume.pdf') }}" target="_blank" class="btn">Download CV</a>
+      
+      {{-- Link CV sekarang dinamis --}}
+      <a href="{{ asset('storage/' . ($contents['home_cv']->value ?? '')) }}" target="_blank" class="btn">Download CV</a>
     </div>
     <div class="home-img">
-      <img src="{{ asset('images/home.png') }}" alt="foto about" />
+      {{-- Gambar home sekarang dinamis --}}
+      <img src="{{ asset('storage/' . ($contents['home_image']->value ?? '')) }}" alt="Foto Home" />
     </div>
   </section>
 
-  <!-- about section -->
   <section class="about" id="about">
     <div class="about-img">
-      <img src="{{ asset('images/about.png') }}" alt="about-photo" />
+      {{-- Gambar about sekarang dinamis --}}
+      <img src="{{ asset('storage/' . ($contents['about_image']->value ?? '')) }}" alt="about-photo" />
     </div>
     <div class="about-content">
-      <h2 class="heading">About <span>Me</span></h2>
-      <h3>UX Designer</h3>
+      {{-- Judul dan sub-judul dinamis --}}
+      <h2 class="heading">{!! $contents['about_heading']->value ?? 'About <span>Me</span>' !!}</h2>
+      <h3>{{ $contents['about_subheading']->value ?? 'UX Designer' }}</h3>
       <p>
-        I am a professional in the field of UX Designer, with 2 year of
-        experience. My education includes an Associate Degree in Computer
-        Science, which gave me a strong foundation in Information Management.
-        Outside of work, I have an interest in music and art.
+        {{ $contents['about_paragraph']->value ?? 'I am a professional in the field of UX Designer...' }}
       </p>
-      <a href="{{ asset('file/sertifikat.pdf') }}" target="_blank" class="btn">Download Certificate</a>
+      {{-- Link sertifikat sekarang dinamis --}}
+      <a href="{{ asset('storage/' . ($contents['about_certificate']->value ?? '')) }}" target="_blank" class="btn">Download Certificate</a>
     </div>
   </section>
 
-  <!-- services section -->
   <section class="services" id="services">
     <h2 class="heading">Our <span>Services</span></h2>
     <div class="services-container">
@@ -80,11 +82,9 @@
     </div>
   </section>
 
-  <!-- portfolio section -->
   <section class="portfolio" id="portfolio">
     <h2 class="heading">Latest <span>Project</span></h2>
 
-    {{-- Filter Kategori --}}
     <div class="portfolio-filter">
         <button class="btn active" data-filter="*">All</button>
         @foreach ($categories as $category)
@@ -94,7 +94,6 @@
 
     <div class="portfolio-container">
       @forelse($portfolios as $p)
-        {{-- Tambahkan class slug dari kategori untuk filtering --}}
         <div class="portfolio-box {{ $p->category->slug }}">
           <img src="{{ asset('storage/' . $p->image) }}" alt="{{ $p->title }}" />
           <div class="portfolio-layer">
@@ -111,7 +110,6 @@
     </div>
   </section>
 
-  <!-- contact section -->
   <section class="contact" id="contact">
     <h2 class="heading">Contact <span>Me!</span></h2>
     <form action="https://formspree.io/f/xqkrzvgg" method="post">

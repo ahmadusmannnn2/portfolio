@@ -20,6 +20,10 @@
                         :active="request()->routeIs('admin.categories.*')">
                         {{ __('Kategori') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.content.index')"
+                        :active="request()->routeIs('admin.content.index')">
+                        {{ __('Kelola Tampilan') }}
+                    </x-nav-link>
 
                     {{-- Menu Portfolio --}}
                     <x-nav-link :href="route('admin.portfolios.index')"
@@ -96,9 +100,13 @@
                 :active="request()->routeIs('admin.portfolios.*')">
                 {{ __('Portfolio') }}
             </x-responsive-nav-link>
-             <x-responsive-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.*')">
+            <x-responsive-nav-link :href="route('admin.categories.index')"
+                :active="request()->routeIs('admin.categories.*')">
                 {{ __('Kategori') }}
             </x-responsive-nav-link>
+            <x-nav-link :href="route('admin.content.index')" :active="request()->routeIs('admin.content.index')">
+                {{ __('Kelola Tampilan') }}
+            </x-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->

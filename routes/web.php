@@ -5,7 +5,7 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Admin\PortfolioController;
 use App\Http\Controllers\Admin\CategoryController; // <-- Tambahkan ini
 use App\Http\Controllers\ProfileController;
-
+use App\Http\Controllers\Admin\ContentController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -13,6 +13,10 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function() {
     Route::resource('portfolios', PortfolioController::class);
     Route::resource('categories', CategoryController::class);
+    
+    // Rute untuk Kelola Tampilan (BARU)
+    Route::get('content', [ContentController::class, 'index'])->name('content.index');
+    Route::post('content', [ContentController::class, 'update'])->name('content.update');
 });
 
 // PERUBAHAN: Rute dashboard sekarang mengarahkan ke halaman portofolio
