@@ -9,9 +9,12 @@ use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Admin\SocialLinkController;
+use App\Http\Controllers\Admin\CertificateController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store'); // <-- Rute BARU
+Route::get('/certificates', [HomeController::class, 'certificates'])->name('certificates.index');
+
 
 // Area Admin, wajib login
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function() {
@@ -26,7 +29,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function() {
     Route::delete('messages/{message}', [MessageController::class, 'destroy'])->name('messages.destroy');
 
     Route::resource('social_links', SocialLinkController::class);
-    
+    Route::resource('certificates', CertificateController::class);
+
 });
 
 // PERUBAHAN: Rute dashboard sekarang mengarahkan ke halaman portofolio

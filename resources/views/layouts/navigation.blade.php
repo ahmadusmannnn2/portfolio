@@ -35,6 +35,13 @@
                         :active="request()->routeIs('admin.social_links.*')">
                         {{ __('Kelola Sosmed') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('admin.certificates.index')"
+                        :active="request()->routeIs('admin.certificates.*')">
+                        {{ __('Sertifikat') }}
+                    </x-nav-link>
+
+
                     {{-- =================================== --}}
                 </div>
             </div>
@@ -113,6 +120,10 @@
             </x-responsive-nav-link>
             <x-nav-link :href="route('admin.social_links.index')" :active="request()->routeIs('admin.social_links.*')">
                 {{ __('Kelola Sosmed') }}
+            </x-nav-link>
+
+            <x-nav-link :href="route('admin.certificates.index')" :active="request()->routeIs('admin.certificates.*')">
+                {{ __('Sertifikat') }}
             </x-nav-link>
 
 

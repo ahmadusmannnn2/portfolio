@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@yield('title', 'Portfolio UI/UX Design | Ahmad Usman')</title>
 
-    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{{ asset('favicon2.ico') }}" type="image/x-icon" />
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
     @stack('styles')
@@ -14,15 +14,18 @@
 
   <body>
     <header class="header">
-      <a href="{{ url('/') }}" class="logo">Portfolio</a>
+      <a href="{{ route('home') }}" class="logo">Portfolio</a>
       <i class="bx bx-menu" id="menu-icon"></i>
+      
+      {{-- ===== PERUBAHAN DI SINI ===== --}}
       <nav class="navbar">
-        <a href="#home" class="active">Home</a>
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#portfolio">Portfolio</a>
-        <a href="#contact">Contact</a>
+        <a href="{{ route('home') }}#home" class="active">Home</a>
+        <a href="{{ route('home') }}#about">About</a>
+        <a href="{{ route('home') }}#services">Services</a>
+        <a href="{{ route('home') }}#portfolio">Portfolio</a>
+        <a href="{{ route('home') }}#contact">Contact</a>
       </nav>
+      {{-- ============================== --}}
     </header>
 
     @yield('content')
@@ -38,36 +41,30 @@
 
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-
     <script src="{{ asset('js/script.js') }}"></script>
     
-    {{-- HAPUS SCRIPT ISOTOPE DAN GANTI DENGAN INI --}}
+    {{-- Script untuk filter sederhana --}}
     <script>
-        // Ambil semua tombol filter dan semua kotak portofolio
-        const filterButtons = document.querySelectorAll('.portfolio-filter .btn');
-        const portfolioItems = document.querySelectorAll('.portfolio-container .portfolio-box');
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.portfolio-filter .btn');
+            const portfolioItems = document.querySelectorAll('.portfolio-container .portfolio-box');
 
-        // Tambahkan event listener untuk setiap tombol
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Hapus kelas 'active' dari semua tombol
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                // Tambahkan kelas 'active' ke tombol yang baru saja diklik
-                button.classList.add('active');
-
-                // Dapatkan nilai filter dari atribut data-filter
-                const filterValue = button.getAttribute('data-filter');
-
-                // Loop melalui setiap item portofolio
-                portfolioItems.forEach(item => {
-                    // Jika filter adalah 'semua' (*), atau jika item memiliki kelas filter yang sesuai
-                    if (filterValue === '*' || item.classList.contains(filterValue.substring(1))) {
-                        item.classList.remove('hide'); // Tampilkan item
-                    } else {
-                        item.classList.add('hide'); // Sembunyikan item
-                    }
+            if (filterButtons.length > 0) {
+                filterButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        filterButtons.forEach(btn => btn.classList.remove('active'));
+                        button.classList.add('active');
+                        const filterValue = button.getAttribute('data-filter');
+                        portfolioItems.forEach(item => {
+                            if (filterValue === '*' || item.classList.contains(filterValue.substring(1))) {
+                                item.classList.remove('hide');
+                            } else {
+                                item.classList.add('hide');
+                            }
+                        });
+                    });
                 });
-            });
+            }
         });
     </script>
     

@@ -7,6 +7,7 @@ use App\Models\Portfolio;
 use App\Models\Category;
 use App\Models\Content;
 use App\Models\SocialLink; // <-- Tambahkan ini
+use App\Models\Certificate;
 
 class HomeController extends Controller
 {
@@ -20,4 +21,10 @@ class HomeController extends Controller
         // Kirim semua data ke view
         return view('home', compact('portfolios', 'categories', 'contents', 'socialLinks'));
     }
+
+    public function certificates()
+{
+    $certificates = Certificate::latest()->get();
+    return view('certificates', compact('certificates'));
+}
 }

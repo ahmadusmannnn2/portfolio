@@ -43,7 +43,7 @@
         {{ $contents['about_paragraph']->value ?? 'I am a professional in the field of UX Designer...' }}
       </p>
       {{-- Link sertifikat sekarang dinamis --}}
-      <a href="{{ asset('storage/' . ($contents['about_certificate']->value ?? '')) }}" target="_blank" class="btn">Download Certificate</a>
+      <a href="{{ route('certificates.index') }}" class="btn">My Certificates</a>
     </div>
   </section>
 
