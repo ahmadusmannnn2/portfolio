@@ -42,12 +42,14 @@ class ServiceController extends Controller
 
     public function update(Request $request, Service $service)
     {
+        // ==== PERUBAHAN DI SINI ====
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'icon_class' => 'required|string|max:255',
-            'short_description' => 'required|string|max:255',
+            'short_description' => 'nullable|string|max:255', // Diubah dari 'required' menjadi 'nullable'
             'long_description' => 'nullable|string',
         ]);
+        // ============================
 
         $validated['slug'] = Str::slug($validated['title']);
         $service->update($validated);

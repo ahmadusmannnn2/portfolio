@@ -2,91 +2,115 @@
 let menuIcon = document.querySelector("#menu-icon");
 let navbar = document.querySelector(".navbar");
 
-menuIcon.onclick = () => {
-  menuIcon.classList.toggle("bx-x");
-  navbar.classList.toggle("active");
-};
+if (menuIcon) {
+    menuIcon.onclick = () => {
+        menuIcon.classList.toggle("bx-x");
+        navbar.classList.toggle("active");
+    };
+}
 
 /*===== scroll sections active link =====*/
 let sections = document.querySelectorAll("section");
 let navLinks = document.querySelectorAll("header nav a");
 
 window.onscroll = () => {
-  sections.forEach((sec) => {
-    let top = window.scrollY;
-    let offset = sec.offsetTop - 150;
-    let height = sec.offsetHeight;
-    let id = sec.getAttribute("id");
+    sections.forEach((sec) => {
+        let top = window.scrollY;
+        let offset = sec.offsetTop - 150;
+        let height = sec.offsetHeight;
+        let id = sec.getAttribute("id");
 
-    if (top >= offset && top < offset + height) {
-      navLinks.forEach((links) => {
-        links.classList.remove("active");
-        document
-          .querySelector("header nav a[href*=" + id + "]")
-          .classList.add("active");
-      });
+        if (top >= offset && top < offset + height) {
+            navLinks.forEach((links) => {
+                links.classList.remove("active");
+                if (document.querySelector("header nav a[href*=" + id + "]")) {
+                    document.querySelector("header nav a[href*=" + id + "]").classList.add("active");
+                }
+            });
+        }
+    });
+
+    /*===== sticky navbar =====*/
+    let header = document.querySelector(".header");
+    if (header) {
+        header.classList.toggle("sticky", window.scrollY > 100);
     }
-  });
 
-  /*===== sticky navbar =====*/
-  let header = document.querySelector(".header");
-  header.classList.toggle("sticky", window.scrollY > 100);
+    /* ===== Ubah Logo Saat Scroll ===== */
+    let logo = document.querySelector('.logo');
+    if (logo) {
+        if (window.scrollY > 100) {
+            logo.textContent = 'Ahmad Usman';
+        } else {
+            logo.textContent = 'Portfolio';
+        }
+    }
 
-  /* ===== PERUBAHAN BARU DI SINI ===== */
-  let logo = document.querySelector('.logo');
-  // Jika posisi scroll lebih dari 100px (saat navbar menjadi sticky)
-  if (window.scrollY > 100) {
-      // Ubah teks logo menjadi nama Anda
-      logo.textContent = 'Ahmad Usman';
-  } else {
-      // Jika kembali ke atas, kembalikan teks menjadi "Portfolio"
-      logo.textContent = 'Portfolio';
-  }
-  /* ================================= */
-
-  /*===== remove menu icon navbar when click navbar link (scroll) =====*/
-  menuIcon.classList.remove("bx-x");
-  navbar.classList.remove("active");
+    /*===== remove menu icon navbar when click navbar link (scroll) =====*/
+    if (menuIcon) {
+        menuIcon.classList.remove("bx-x");
+    }
+    if (navbar) {
+        navbar.classList.remove("active");
+    }
 };
-
-/*===== swiper =====*/
-var swiper = new Swiper(".mySwiper", {
-  slidesPerView: 1,
-  spaceBetween: 50,
-  loop: true,
-  grabCursor: true,
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true,
-  },
-  navigation: {
-    nextEl: ".swiper-button-next",
-    prevEl: ".swiper-button-prev",
-  },
-});
 
 /*===== dark light mode =====*/
 let darkModeIcon = document.querySelector("#darkMode-icon");
 
-darkModeIcon.onclick = () => {
-  darkModeIcon.classList.toggle("bx-sun");
-  document.body.classList.toggle("dark-mode");
-};
+if (darkModeIcon) {
+    // Cek preferensi tema dari local storage
+    if (localStorage.getItem("theme") === "dark") {
+        darkModeIcon.classList.add("bx-sun");
+        document.body.classList.add("dark-mode");
+    }
+
+    darkModeIcon.onclick = () => {
+        darkModeIcon.classList.toggle("bx-sun");
+        document.body.classList.toggle("dark-mode");
+
+        // Simpan preferensi tema
+        if (document.body.classList.contains("dark-mode")) {
+            localStorage.setItem("theme", "dark");
+        } else {
+            localStorage.setItem("theme", "light");
+        }
+    };
+}
+
 
 /*===== scroll reveal =====*/
 ScrollReveal({
-  // reset: true,
-  distance: "80px",
-  duration: 2000,
-  delay: 200,
+    distance: "80px",
+    duration: 2000,
+    delay: 200,
 });
 
 ScrollReveal().reveal(".home-content, .heading", { origin: "top" });
-ScrollReveal().reveal(
-  ".home-img img, .services-container, .portfolio-box, .testimonial-wrapper, .contact form",
-  { origin: "bottom" }
-);
+ScrollReveal().reveal(".home-img img, .services-container, .portfolio-box, .testimonial-wrapper, .contact form", { origin: "bottom" });
 ScrollReveal().reveal(".home-content h1, .about-img img", { origin: "left" });
-ScrollReveal().reveal(".home-content h3, .home-content p, .about-content", {
-  origin: "right",
+ScrollReveal().reveal(".home-content h3, .home-content p, .about-content", { origin: "right" });
+
+
+// =================================================================
+// === KODE UNTUK TYPED JS YANG DIPERBAIKI ===
+// =================================================================
+document.addEventListener('DOMContentLoaded', function() {
+    const multipleTextSpan = document.querySelector('.multiple-text');
+    if (multipleTextSpan) {
+        const rolesString = multipleTextSpan.getAttribute('data-roles');
+        // Memastikan ada data sebelum dipecah
+        if (rolesString) {
+            // Memecah string dari admin menjadi array yang bisa dibaca Typed.js
+            const rolesArray = rolesString.split(',').map(role => role.trim());
+
+            new Typed(".multiple-text", {
+                strings: rolesArray, // Menggunakan array yang sudah dipecah
+                typeSpeed: 100,
+                backSpeed: 100,
+                backDelay: 1000,
+                loop: true,
+            });
+        }
+    }
 });
