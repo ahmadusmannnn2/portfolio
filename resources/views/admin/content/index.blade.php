@@ -40,7 +40,7 @@
                             <x-input-label for="home_roles" value="Peran (pisahkan dengan koma)" />
                             <x-text-input id="home_roles" class="block mt-1 w-full" type="text" name="home_roles" :value="old('home_roles', $contents['home_roles']->value ?? '')" />
                         </div>
-                         <div class="mb-4">
+                        <div class="mb-4">
                             <x-input-label for="home_paragraph" value="Paragraf" />
                             <textarea name="home_paragraph" id="home_paragraph" class="block mt-1 w-full border-gray-300 focus:border-theme-main focus:ring-theme-main rounded-md shadow-sm">{{ old('home_paragraph', $contents['home_paragraph']->value ?? '') }}</textarea>
                         </div>
@@ -50,29 +50,28 @@
                                 <svg class="w-5 h-5 mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                     <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4 4-4-4h3V3h2v8z" />
                                 </svg>
-                                <span class="text-base leading-normal">Pilih file PDF...</span>
+                                <span id="home_cv-label-text" class="text-base leading-normal">Pilih file PDF...</span>
                                 <input id="home_cv" type="file" name="home_cv" class="hidden">
                             </label>
                         </div>
-                         <div class="mb-4">
+                        <div class="mb-4">
                             <x-input-label for="home_image" value="Gambar Home (Kosongkan jika tidak ingin ganti)" />
-                             {{-- Input Gambar yang Diperbaiki --}}
                             <label for="home_image" class="flex items-center px-4 py-2 bg-gray-200 text-gray-700 rounded-lg shadow-sm tracking-wide uppercase border border-gray-300 cursor-pointer hover:bg-gray-300 mt-1">
                                 <svg class="w-5 h-5 mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                     <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4 4-4-4h3V3h2v8z" />
                                 </svg>
-                                <span class="text-base leading-normal">Pilih gambar...</span>
+                                <span id="home_image-label-text" class="text-base leading-normal">Pilih gambar...</span>
                                 <input id="home_image" type="file" name="home_image" class="hidden">
                             </label>
                         </div>
 
                         <h3 class="text-lg font-bold text-gray-800 border-b pb-2 my-6">Bagian About</h3>
 
-                         <div class="mb-4">
+                        <div class="mb-4">
                             <x-input-label for="about_heading" value="Judul (Gunakan <span></span> untuk warna)" />
                             <x-text-input id="about_heading" class="block mt-1 w-full" type="text" name="about_heading" :value="old('about_heading', $contents['about_heading']->value ?? '')" />
                         </div>
-                         <div class="mb-4">
+                        <div class="mb-4">
                             <x-input-label for="about_subheading" value="Sub-Judul" />
                             <x-text-input id="about_subheading" class="block mt-1 w-full" type="text" name="about_subheading" :value="old('about_subheading', $contents['about_subheading']->value ?? '')" />
                         </div>
@@ -86,18 +85,17 @@
                                 <svg class="w-5 h-5 mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                     <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4 4-4-4h3V3h2v8z" />
                                 </svg>
-                                <span class="text-base leading-normal">Pilih file PDF...</span>
+                                <span id="about_certificate-label-text" class="text-base leading-normal">Pilih file PDF...</span>
                                 <input id="about_certificate" type="file" name="about_certificate" class="hidden">
                             </label>
                         </div>
-                         <div class="mb-4">
+                        <div class="mb-4">
                             <x-input-label for="about_image" value="Gambar About (Kosongkan jika tidak ingin ganti)" />
-                             {{-- Input Gambar yang Diperbaiki --}}
-                             <label for="about_image" class="flex items-center px-4 py-2 bg-gray-200 text-gray-700 rounded-lg shadow-sm tracking-wide uppercase border border-gray-300 cursor-pointer hover:bg-gray-300 mt-1">
+                            <label for="about_image" class="flex items-center px-4 py-2 bg-gray-200 text-gray-700 rounded-lg shadow-sm tracking-wide uppercase border border-gray-300 cursor-pointer hover:bg-gray-300 mt-1">
                                 <svg class="w-5 h-5 mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                     <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4 4-4-4h3V3h2v8z" />
                                 </svg>
-                                <span class="text-base leading-normal">Pilih gambar...</span>
+                                <span id="about_image-label-text" class="text-base leading-normal">Pilih gambar...</span>
                                 <input id="about_image" type="file" name="about_image" class="hidden">
                             </label>
                         </div>
@@ -112,4 +110,32 @@
             </div>
         </div>
     </div>
+
+    {{-- Skrip untuk memperbarui label file input --}}
+    @push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const fields = ['home_cv', 'home_image', 'about_certificate', 'about_image'];
+            fields.forEach(function(id) {
+                const input = document.getElementById(id);
+                const labelText = document.getElementById(`${id}-label-text`);
+                input.addEventListener('change', function() {
+                    if (input.files.length > 0) {
+                        labelText.textContent = input.files[0].name;
+                    } else {
+                        // teks default berdasarkan jenis field
+                        const defaults = {
+                            home_cv: 'Pilih file PDF...',
+                            about_certificate: 'Pilih file PDF...',
+                            home_image: 'Pilih gambar...',
+                            about_image: 'Pilih gambar...'
+                        };
+                        labelText.textContent = defaults[id] || 'Pilih file...';
+                    }
+                });
+            });
+        });
+    </script>
+    @endpush
+
 </x-app-layout>

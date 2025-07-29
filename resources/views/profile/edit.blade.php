@@ -29,4 +29,21 @@
             </div>
         </div>
     </div>
+
+        @push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const input = document.getElementById('photo');
+            const labelText = document.getElementById('photo-label-text');
+            input.addEventListener('change', function() {
+                if (input.files && input.files.length > 0) {
+                    labelText.textContent = input.files[0].name;
+                } else {
+                    labelText.textContent = 'Pilih Foto...';
+                }
+            });
+        });
+    </script>
+    @endpush
+
 </x-app-layout>

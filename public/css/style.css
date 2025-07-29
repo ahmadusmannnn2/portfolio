@@ -281,20 +281,21 @@ span {
   display: flex;
 }
 
+/* Sebelumnya ada aturan aspect-ratio dan object-fit:cover di sini */
 .portfolio-box img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  transition: 0.5s ease;
+  width: 100%;       /* sesuaikan lebar kontainer */
+  height: auto;      /* biarkan tinggi mengatur otomatis */
+  object-fit: contain; /* tampilkan seluruh gambar, sisakan ruang jika perlu */
+  transition: transform 0.5s ease;
 }
 
 .portfolio-box.hide {
   display: none;
 }
 
+/* Jika masih ingin efek zoom on hover, contohnya: */
 .portfolio-box:hover img {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .portfolio-box .portfolio-layer {
