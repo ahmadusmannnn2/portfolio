@@ -79,7 +79,7 @@
                             <x-input-label for="about_paragraph" value="Paragraf About" />
                             <textarea name="about_paragraph" id="about_paragraph" class="block mt-1 w-full border-gray-300 focus:border-theme-main focus:ring-theme-main rounded-md shadow-sm">{{ old('about_paragraph', $contents['about_paragraph']->value ?? '') }}</textarea>
                         </div>
-                        <div class="mb-4">
+                        <!-- <div class="mb-4">
                             <x-input-label for="about_certificate" value="File Sertifikat (Kosongkan jika tidak ingin ganti)" />
                             <label for="about_certificate" class="flex items-center px-4 py-2 bg-theme-secondary text-theme-text rounded-lg shadow-sm tracking-wide uppercase border border-blue cursor-pointer hover:bg-theme-main hover:text-white mt-1">
                                 <svg class="w-5 h-5 mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -88,7 +88,7 @@
                                 <span id="about_certificate-label-text" class="text-base leading-normal">Pilih file PDF...</span>
                                 <input id="about_certificate" type="file" name="about_certificate" class="hidden">
                             </label>
-                        </div>
+                        </div> -->
                         <div class="mb-4">
                             <x-input-label for="about_image" value="Gambar About (Kosongkan jika tidak ingin ganti)" />
                             <label for="about_image" class="flex items-center px-4 py-2 bg-gray-200 text-gray-700 rounded-lg shadow-sm tracking-wide uppercase border border-gray-300 cursor-pointer hover:bg-gray-300 mt-1">
