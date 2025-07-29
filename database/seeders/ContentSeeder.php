@@ -9,6 +9,7 @@ class ContentSeeder extends Seeder
 {
     public function run(): void
     {
+        Content::truncate();
         $contents = [
             // Home Section
             ['key' => 'home_greeting', 'value' => 'Hello, It\'s Me', 'type' => 'text'],
@@ -24,6 +25,9 @@ class ContentSeeder extends Seeder
             ['key' => 'about_paragraph', 'value' => 'I am a professional in the field of UX Designer, with 2 year of experience. My education includes an Associate Degree in Computer Science, which gave me a strong foundation in Information Management. Outside of work, I have an interest in music and art.', 'type' => 'textarea'],
             ['key' => 'about_certificate', 'value' => 'file/sertifikat.pdf', 'type' => 'file'],
             ['key' => 'about_image', 'value' => 'images/about.png', 'type' => 'image'],
+
+            ['key' => 'footer_text', 'value' => 'by Ahmad Usman | All Rights Reserved.', 'type' => 'text'],
+
         ];
 
         foreach ($contents as $content) {

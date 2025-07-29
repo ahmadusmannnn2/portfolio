@@ -11,6 +11,7 @@ use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Admin\SocialLinkController;
 use App\Http\Controllers\Admin\CertificateController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\UserController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store'); // <-- Rute BARU
@@ -32,6 +33,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::resource('social_links', SocialLinkController::class);
     Route::resource('certificates', CertificateController::class);
     Route::resource('services', ServiceController::class);
+    Route::resource('users', UserController::class)->except(['show', 'edit', 'update']);
 });
 
 // PERUBAHAN: Rute dashboard sekarang mengarahkan ke halaman portofolio

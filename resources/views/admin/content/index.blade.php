@@ -100,6 +100,14 @@
                             </label>
                         </div>
 
+                        {{-- FORM BARU UNTUK FOOTER --}}
+                        <h3 class="text-lg font-bold text-gray-800 border-b pb-2 my-6">Bagian Footer</h3>
+
+                        <div class="mb-4">
+                            <x-input-label for="footer_text" value="Teks Copyright Footer" />
+                            <x-text-input id="footer_text" class="block mt-1 w-full" type="text" name="footer_text" :value="old('footer_text', $contents['footer_text']->value ?? '')" />
+                        </div>
+
                         <div class="flex items-center justify-end mt-4">
                             <x-primary-button>
                                 Simpan Perubahan

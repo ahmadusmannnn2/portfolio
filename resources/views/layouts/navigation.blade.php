@@ -18,6 +18,8 @@
                         ['route' => 'admin.certificates.index', 'label' => 'Sertifikat'],
                         ['route' => 'admin.services.index', 'label' => 'Layanan'],
                         ['route' => 'profile.edit', 'label' => 'Profil'],
+                        ['route' => 'admin.users.index', 'label' => 'User'],
+
                     ] as $item)
                         <x-nav-link :href="route($item['route'])"
                                     :active="request()->routeIs(str_replace('index', '*', $item['route']) )"
@@ -80,6 +82,7 @@
                 ['route' => 'admin.certificates.index', 'label' => 'Sertifikat'],
                 ['route' => 'admin.services.index', 'label' => 'Layanan'],
                 ['route' => 'profile.edit', 'label' => 'Profil'],
+                ['route' => 'admin.users.index', 'label' => 'User'],
             ] as $item)
                 <x-responsive-nav-link :href="route($item['route'])" :active="request()->routeIs(str_replace('index', '*', $item['route']))">
                     {{ __($item['label']) }}
