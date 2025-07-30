@@ -5,7 +5,9 @@
 @section('content')
 <section class="about" id="about">
     <div class="about-content" style="text-align: center;">
-        <h2 class="heading">{!! $service->title !!}</h2>
+        {{-- Menambahkan inline style untuk memaksa rata tengah --}}
+        <h2 class="heading" style="text-align: center;">{!! $service->title !!}</h2>
+        
         <i class="{{ $service->icon_class }}" style="font-size: 8rem; color: var(--main-color); margin-bottom: 2rem;"></i>
         <div style="max-width: 800px; margin: 0 auto;">
             <p style="font-size: 1.8rem; line-height: 1.6;">

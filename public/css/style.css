@@ -554,3 +554,56 @@ span {
     margin-top: 2rem;
   }
 }
+
+
+/* ===================================== */
+/* === STYLE BARU UNTUK PAGINATION === */
+/* ===================================== */
+.pagination-links nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination-links .flex.justify-between {
+    display: none; /* Sembunyikan teks "Showing 1 to 6 of..." */
+}
+
+.pagination-links .relative.z-0.inline-flex {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.pagination-links a,
+.pagination-links span {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.8rem 1.5rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    border-radius: 0.8rem;
+    background: var(--bg-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    border: 1px solid var(--second-bg-color);
+}
+
+.pagination-links span.cursor-default {
+    background: var(--second-bg-color);
+    color: var(--text-color);
+    opacity: 0.6;
+}
+
+.pagination-links a:hover {
+    background: var(--main-color);
+    color: var(--bg-color);
+    border-color: var(--main-color);
+}
+
+.pagination-links .active span {
+    background: var(--main-color);
+    color: var(--bg-color);
+    border-color: var(--main-color);
+    z-index: 10;
+}

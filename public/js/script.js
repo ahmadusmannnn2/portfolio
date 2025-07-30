@@ -30,13 +30,11 @@ window.onscroll = () => {
         }
     });
 
-    /*===== sticky navbar =====*/
     let header = document.querySelector(".header");
     if (header) {
         header.classList.toggle("sticky", window.scrollY > 100);
     }
 
-    /* ===== Ubah Logo Saat Scroll ===== */
     let logo = document.querySelector('.logo');
     if (logo) {
         if (window.scrollY > 100) {
@@ -46,7 +44,6 @@ window.onscroll = () => {
         }
     }
 
-    /*===== remove menu icon navbar when click navbar link (scroll) =====*/
     if (menuIcon) {
         menuIcon.classList.remove("bx-x");
     }
@@ -55,62 +52,57 @@ window.onscroll = () => {
     }
 };
 
-/*===== dark light mode =====*/
-let darkModeIcon = document.querySelector("#darkMode-icon");
-
-if (darkModeIcon) {
-    // Cek preferensi tema dari local storage
-    if (localStorage.getItem("theme") === "dark") {
-        darkModeIcon.classList.add("bx-sun");
-        document.body.classList.add("dark-mode");
-    }
-
-    darkModeIcon.onclick = () => {
-        darkModeIcon.classList.toggle("bx-sun");
-        document.body.classList.toggle("dark-mode");
-
-        // Simpan preferensi tema
-        if (document.body.classList.contains("dark-mode")) {
-            localStorage.setItem("theme", "dark");
-        } else {
-            localStorage.setItem("theme", "light");
-        }
-    };
-}
-
-
 /*===== scroll reveal =====*/
 ScrollReveal({
     distance: "80px",
     duration: 2000,
     delay: 200,
 });
-
 ScrollReveal().reveal(".home-content, .heading", { origin: "top" });
-ScrollReveal().reveal(".home-img img, .services-container, .portfolio-box, .testimonial-wrapper, .contact form", { origin: "bottom" });
+ScrollReveal().reveal(".home-img img, .services-container, .portfolio-box, .contact form", { origin: "bottom" });
 ScrollReveal().reveal(".home-content h1, .about-img img", { origin: "left" });
-ScrollReveal().reveal(".home-content h3, .home-content p, .about-content", { origin: "right" });
+ScrollReveal().reveal(".home-content h3, .home-content p, .about-content", { origin: "right", });
 
-
-// =================================================================
-// === KODE UNTUK TYPED JS YANG DIPERBAIKI ===
-// =================================================================
+/*===== typed js & filter js =====*/
 document.addEventListener('DOMContentLoaded', function() {
+    // Logika Typed.js
     const multipleTextSpan = document.querySelector('.multiple-text');
     if (multipleTextSpan) {
         const rolesString = multipleTextSpan.getAttribute('data-roles');
-        // Memastikan ada data sebelum dipecah
         if (rolesString) {
-            // Memecah string dari admin menjadi array yang bisa dibaca Typed.js
             const rolesArray = rolesString.split(',').map(role => role.trim());
-
             new Typed(".multiple-text", {
-                strings: rolesArray, // Menggunakan array yang sudah dipecah
+                strings: rolesArray,
                 typeSpeed: 100,
                 backSpeed: 100,
                 backDelay: 1000,
                 loop: true,
             });
         }
+    }
+
+    // === LOGIKA FILTER SEDERHANA (KEMBALI KE VERSI AWAL) ===
+    const filterButtons = document.querySelectorAll('.portfolio-filter .btn');
+    const portfolioItems = document.querySelectorAll('.portfolio-container .portfolio-box');
+
+    if (filterButtons.length > 0) {
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                const filterValue = button.getAttribute('data-filter');
+
+                portfolioItems.forEach(item => {
+                    if (filterValue === '*' || item.classList.contains(filterValue.substring(1))) {
+                        // Jika cocok, tampilkan
+                        item.style.display = 'flex'; 
+                    } else {
+                        // Jika tidak cocok, sembunyikan
+                        item.style.display = 'none'; 
+                    }
+                });
+            });
+        });
     }
 });

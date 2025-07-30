@@ -13,9 +13,10 @@ class PortfolioController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+   public function index()
     {
-        $portfolios = Portfolio::latest()->paginate(10);
+        // Tambahkan with('category') untuk mengambil relasi
+        $portfolios = Portfolio::with('category')->latest()->paginate(10);
         return view('admin.portfolios.index', compact('portfolios'));
     }
 

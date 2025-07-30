@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-theme-secondary border-b border-gray-300 shadow-lg">
+<nav x-data="{ open: false }" class="bg-theme-secondary border-b border-gray-300 sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16 items-center">
             <div class="flex items-center">

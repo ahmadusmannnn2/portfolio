@@ -14,13 +14,14 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $portfolios = Portfolio::with('category')->latest()->get();
+        // KEMBALIKAN KE get() UNTUK MENGAMBIL SEMUA PORTOFOLIO
+        $portfolios = Portfolio::with('category')->latest()->get(); 
+        
         $categories = Category::all();
         $contents = Content::all()->keyBy('key');
         $socialLinks = SocialLink::all();
-        $services = Service::latest()->get(); // <-- Tambahkan ini
+        $services = Service::all();
         
-        // Tambahkan 'services' ke dalam data yang dikirim ke view
         return view('home', compact('portfolios', 'categories', 'contents', 'socialLinks', 'services'));
     }
 
