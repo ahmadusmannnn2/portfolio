@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Service;
+use App\Models\Category; // <-- Tambahkan ini untuk mengakses model Kategori
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -17,7 +18,8 @@ class ServiceController extends Controller
 
     public function create()
     {
-        return view('admin.services.create');
+        $categories = Category::all(); // Ambil semua data kategori
+        return view('admin.services.create', compact('categories')); // Kirim data kategori ke view
     }
 
     public function store(Request $request)
@@ -25,7 +27,7 @@ class ServiceController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'icon_class' => 'required|string|max:255',
-            'short_description' => 'required|string|max:255',
+            'short_description' => 'nullable|string|max:255',
             'long_description' => 'nullable|string',
         ]);
 
@@ -37,19 +39,18 @@ class ServiceController extends Controller
 
     public function edit(Service $service)
     {
-        return view('admin.services.edit', compact('service'));
+        $categories = Category::all(); // Ambil semua data kategori
+        return view('admin.services.edit', compact('service', 'categories')); // Kirim data kategori ke view
     }
 
     public function update(Request $request, Service $service)
     {
-        // ==== PERUBAHAN DI SINI ====
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'icon_class' => 'required|string|max:255',
-            'short_description' => 'nullable|string|max:255', // Diubah dari 'required' menjadi 'nullable'
+            'short_description' => 'nullable|string|max:255',
             'long_description' => 'nullable|string',
         ]);
-        // ============================
 
         $validated['slug'] = Str::slug($validated['title']);
         $service->update($validated);

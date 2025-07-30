@@ -30,15 +30,17 @@
 
     @yield('content')
 
-    <footer class="footer">
+    {{-- ===== PERUBAHAN DI SINI ===== --}}
+    <footer class="footer flex-col items-center justify-center text-center gap-4">
       <div class="footer-text">
-        {{-- Mengubah teks footer menjadi dinamis --}}
         <p>&copy; {{ date('Y') }} {{ $contents['footer_text']->value ?? 'by Ahmad Usman | All Rights Reserved.' }}</p>
       </div>
+
       <div class="footer-iconTop">
-        <a href="#home"><i class="bx bx-up-arrow-alt"></i></a>
+        <a href="#"><i class="bx bx-up-arrow-alt"></i></a>
       </div>
     </footer>
+    {{-- ============================== --}}
 
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>

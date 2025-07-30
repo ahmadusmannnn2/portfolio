@@ -34,6 +34,13 @@ class HomeController extends Controller
     // Method baru untuk halaman detail layanan
     public function serviceDetail(Service $service)
     {
-        return view('service-detail', compact('service'));
+        // 1. Cari kategori yang namanya sama dengan judul layanan
+        $category = Category::where('name', $service->title)->first();
+        
+        // 2. Jika kategori ditemukan, ambil semua portofolio dari kategori tersebut. Jika tidak, ambil koleksi kosong.
+        $relatedPortfolios = $category ? Portfolio::where('category_id', $category->id)->latest()->get() : collect();
+
+        // 3. Kirim data layanan dan portofolio terkait ke view
+        return view('service-detail', compact('service', 'relatedPortfolios'));
     }
 }

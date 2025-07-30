@@ -10,10 +10,17 @@
                 <div class="p-6 text-gray-900">
                     <form action="{{ route('admin.services.store') }}" method="POST">
                         @csrf
+                        {{-- Mengubah input teks menjadi dropdown --}}
                         <div class="mb-4">
                             <x-input-label for="title" value="Judul Layanan" />
-                            <x-text-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title')" required />
+                            <select name="title" id="title" class="block mt-1 w-full border-gray-300 focus:border-theme-main focus:ring-theme-main rounded-md shadow-sm" required>
+                                <option value="">Pilih Kategori</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->name }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
+
                         <div class="mb-4">
                             <x-input-label for="icon_class" value="Kelas Ikon BoxIcons (e.g., bx bx-code-alt)" />
                             <x-text-input id="icon_class" class="block mt-1 w-full" type="text" name="icon_class" :value="old('icon_class')" required />
